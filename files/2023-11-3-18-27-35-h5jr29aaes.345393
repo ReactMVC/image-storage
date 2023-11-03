@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amir MaMaD</title>
+</head>
+
+<body>
+    <canvas id="matrix"></canvas>
+<div><p><span style="color:#27ae60"><span style="font-family:courier new,courier"><span style="background-color:#000000">Hack by Amir Ablis</span></span></span></p></div>
+
+</body>
+<script>
+    // Pegando o elemento do Canvas
+    const canvas = document.getElementById("matrix");
+
+    // Definindo o seu contexto sendo 2d ou 3d
+    const ctx = canvas.getContext("2d");
+
+    // definindo o canvas com tamanho máximo da tela
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    // letras do Matrix
+    const letters = ["日", "ﾊ", "ﾐ", "ﾋ", "ｰ", "ｳ", "ｼ", "ﾅ", "ﾓ", "ﾆ", "ｻ", "ﾜ", "ﾂ", "ｵ", "ﾘ", "ｱ", "ﾎ", "ﾃ", "ﾏ", "ｹ", "ﾒ", "ｴ", "ｶ", "ｷ", "ﾑ", "ﾕ", "ﾗ", "ｾ", "ﾈ", "ｽ", "ﾀ", "ﾇ", "ﾍ", ":", "・", ".", "=", "*", "+", "-", "<", ">", "¦", "｜", "ﾘ"];
+
+    const fontSize = 10;
+
+    // definindo quantas colunas serão necessárias pelo tamanho da tela e fonte
+    const columns = canvas.width;
+
+    // criando um array para cada gota, sempre iniciando na posição do y=1
+    const drops = new Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+        // preenchendo a tela toda de preto com opacidade
+        // esse truque da opacidade será útil para o efeito 
+        // das letras sumindo aos poucos
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // definindo a cor e estilo da fonte
+        ctx.fillStyle = "#0F0";
+        ctx.font = ${fontSize}px arial;
+
+        for (let i = 0; i < drops.length; i++) {
+            // pegando uma letra randomicamente no array
+            const text = letters[Math.floor(Math.random() * letters.length)];
+
+            // escrevendo na tela
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+             // resetando a posição da gota ao chegar no fim
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+                drops[i] = 0;
+            }
+            // movendo as gotas no eixo y
+            drops[i]++;
+        }
+
+        // chamada recursiva para animar quadro a quadro
+        window.requestAnimationFrame(draw);
+    }
+
+    // chamando a função criada
+    draw()
+    
+</script>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+canvas{
+          position:absolute;
+          left:0;
+          top:0;
+          z-index:-1;
+          
+      }
+      div{
+          position:absolute;
+          z-index:0;
+           position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+font-size: 25px;
+      }
+</style>
+
+</html>
